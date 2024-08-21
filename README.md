@@ -23,4 +23,13 @@ Set up your columns in this specific way for the script to work:
 
   - Also copy the spreadsheet URL on the corresponding line
 
+### 4. Running the Script
+ - You can run directly in the code editor if you want, but you'll have to open it every time you want to make updates
+ - Otherwise, hit Deploy --> New Deployment
+ - Select Web App and Add-on
+ - Then, go to your spreadsheet and hit Extensions again
+ - Under Macros, click Import Macro
+ - Select downloadAndAddToCalendar
+ - Now you'll be able to run whenever you want from the Extensions tab
+
 ## Done!
