@@ -1,10 +1,10 @@
 function downloadAndAddToCalendar() {
   // Set up the Google Calendar API
-  var calendarId = ;
+  var calendarId = '352b2a19b81b3ea0ed52f129a580c9becb6d033dcd058188d989223b90f681ce@group.calendar.google.com';
   var calendar = CalendarApp.getCalendarById(calendarId);
 
   // Connect to the spreadsheet
-  var spreadsheetUrl = ;
+  var spreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1bD-Ibc_nmkfNgBvCV-q29xNom3GvaXgPBN90yVVOMbU/edit?gid=0#gid=0';
   var spreadsheet = SpreadsheetApp.openByUrl(spreadsheetUrl);
   var sheet = spreadsheet.getActiveSheet();
 
@@ -16,6 +16,16 @@ function downloadAndAddToCalendar() {
   var oaLinkIndex = headers.indexOf("OA Link");
   var interviewDateIndex = headers.indexOf("Interview Date");
   var onGCalIndex = headers.indexOf("On GCal");
+
+  // console.log("Companies: " + data.length)
+
+  var now = new Date();
+  var oneYearFromNow = new Date(now.getTime() + (365 * 24 * 60 * 60 * 1000));
+  var events = calendar.getEvents(now, oneYearFromNow);
+  var eventNames = [];
+  for (var i = 0; i < events.length; i++) {
+    eventNames.push(events[i].getTitle());
+  }
 
   for (var i = 1; i < data.length; i++) {
     var status = data[i][statusIndex];
@@ -48,9 +58,11 @@ function downloadAndAddToCalendar() {
         } else {
           console.log('Event "' + task + '" is in the past (' + eventDate.toDateString() +')');
         }
+      } else {
+        console.log(company + " is not eligible to be added to calendar: " + status)
       }
     } else {
-      console.log('Event "' + company + ", " + status + '" is already on your calendar.');
+      console.log('Event "' + company + '" is already on your calendar.');
     }
   }
 }
